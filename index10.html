@@ -19,6 +19,9 @@
     <div id="div"></div>
     <script>
         const form=document.getElementById('form').addEventListener('submit',register);
+        const username=document.getElementById('uname');
+        const emailElem=document.getElementById('email');
+        const phoneElem=document.getElementById('phoneNo');
         function register(e){
             e.preventDefault();
             const uname=e.target.username.value;
@@ -38,12 +41,27 @@
             const li=document.createElement('li');
             const div=document.getElementById('div');
             const btn=document.createElement('input');
+            const editBtn=document.createElement('input');
+            editBtn.type='button';
+            editBtn.value='Edit';
             btn.type='button';
             btn.value='Delete';
             li.textContent=uname + " " + email + " " + phoneNo;
             btn.onclick=()=>{
                 localStorage.removeItem(email);
                 div.removeChild(li);}
+            editBtn.onclick=()=>{
+                username.value=uname;
+                emailElem.value=email;
+                phoneElem.value=phoneNo;
+
+
+                localStorage.removeItem(email);
+                div.removeChild(li);
+                
+
+            }
+            li.appendChild(editBtn);
             li.appendChild(btn);
            
             div.appendChild(li);
