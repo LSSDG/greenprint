@@ -16,6 +16,7 @@
         <input type="tel" id="phoneNo" name="phoneNo" required>
         <button>Submit</button>
     </form>
+    <div id="div"></div>
     <script>
         const form=document.getElementById('form').addEventListener('submit',register);
         function register(e){
@@ -33,7 +34,13 @@
             const user1converted=JSON.stringify(user1);
             //localStorage.setItem('name',uname);
             //localStorage.setItem('email',email);
-            localStorage.setItem('user1',user1converted);
+            localStorage.setItem(email,user1converted);
+            const li=document.createElement('li');
+            const div=document.getElementById('div');
+            li.innerHTML=uname + " " + email + " " + phoneNo;
+            div.appendChild(li);
+            console.log(div);
+
         }
 
     </script>
