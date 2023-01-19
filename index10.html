@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form">
+        <label for="uname">Username</label>
+        <input type="text" id="uname" name="username" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="emailId" required>
+        <label for="phoneNo">PhoneNo</label>
+        <input type="tel" id="phoneNo" name="phoneNo" required>
+        <button>Submit</button>
+    </form>
+    <div id="div"></div>
+    <script>
+        const form=document.getElementById('form').addEventListener('submit',register);
+        function register(e){
+            e.preventDefault();
+            const uname=e.target.username.value;
+            const email=e.target.emailId.value;
+            const phoneNo=e.target.phoneNo.value;
+            const user1={
+                name:uname,
+                email:email,
+                phone:phoneNo
+
+
+            }
+            const user1converted=JSON.stringify(user1);
+            //localStorage.setItem('name',uname);
+            //localStorage.setItem('email',email);
+            localStorage.setItem(email,user1converted);
+            const li=document.createElement('li');
+            const div=document.getElementById('div');
+            const btn=document.createElement('input');
+            btn.type='button';
+            btn.value='Delete';
+            li.textContent=uname + " " + email + " " + phoneNo;
+            btn.onclick=()=>{
+                localStorage.removeItem(email);
+                div.removeChild(li);}
+            li.appendChild(btn);
+           
+            div.appendChild(li);
+            console.log(div);
+
+        }
+
+    </script>
+</body>
+</html>
