@@ -17,6 +17,7 @@
         <button>Submit</button>
     </form>
     <div id="div"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script>
         const form=document.getElementById('form').addEventListener('submit',register);
         const username=document.getElementById('uname');
@@ -34,10 +35,13 @@
 
 
             }
-            const user1converted=JSON.stringify(user1);
+            //const user1converted=JSON.stringify(user1);
+            axios.post("https://crudcrud.com/api/9b43d4c179d646ed86c94a08a50fa39e/UserData",user1)
+            .then((res)=>console.log(res)).catch(err=>console.log(err));
+            
             //localStorage.setItem('name',uname);
             //localStorage.setItem('email',email);
-            localStorage.setItem(email,user1converted);
+            //localStorage.setItem(email,user1converted);
             const li=document.createElement('li');
             const div=document.getElementById('div');
             const btn=document.createElement('input');
@@ -56,8 +60,8 @@
                 phoneElem.value=phoneNo;
 
 
-                localStorage.removeItem(email);
-                div.removeChild(li);
+                //localStorage.removeItem(email);
+                //div.removeChild(li);
                 
 
             }
