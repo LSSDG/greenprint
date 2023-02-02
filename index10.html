@@ -36,13 +36,13 @@
 
             }
             //const user1converted=JSON.stringify(user1);
-            axios.post("https://crudcrud.com/api/9b43d4c179d646ed86c94a08a50fa39e/UserData",user1)
+            axios.post("https://crudcrud.com/api/946a651427254b70a965e8cc5d4c905c/UserData",user1)
             .then((res)=>console.log(res)).catch(err=>console.log(err));
             
             //localStorage.setItem('name',uname);
             //localStorage.setItem('email',email);
             //localStorage.setItem(email,user1converted);
-            const li=document.createElement('li');
+            /*const li=document.createElement('li');
             const div=document.getElementById('div');
             const btn=document.createElement('input');
             const editBtn=document.createElement('input');
@@ -68,9 +68,26 @@
             li.appendChild(editBtn);
             li.appendChild(btn);
            
-            div.appendChild(li);
-            console.log(div);
+            div.appendChild(li);*/
+            //console.log(div);
 
+        }
+        window.addEventListener("DOMContentLoaded",()=>{
+            axios.get("https://crudcrud.com/api/946a651427254b70a965e8cc5d4c905c/UserData").then(res=>{
+            for(let i=0;i<res.data.length;i++){
+                showUser(res.data[i]);
+            }
+
+        }).catch(err=>{console.log(err);});
+
+        })
+        function showUser(user){
+            const parentNode=document.getElementById('div');
+            let childHTML=`<li id=${user.email}> ${user.name}-${user.email}-${user.phone}
+                <button onclick=deleteUser('${user.email}')>Delete</button>
+                <button onclick=editUser('${user.email}','${user.name}','${user.phone}')>Edit</button>
+                </li>`
+            parentNode.innerHTML=parentNode.innerHTML+childHTML;
         }
 
     </script>
