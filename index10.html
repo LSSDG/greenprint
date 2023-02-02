@@ -37,7 +37,10 @@
             }
             //const user1converted=JSON.stringify(user1);
             axios.post("https://crudcrud.com/api/946a651427254b70a965e8cc5d4c905c/UserData",user1)
-            .then((res)=>console.log(res)).catch(err=>console.log(err));
+            .then((res)=>{
+                console.log(res);
+                showUser(res.data);
+            }).catch(err=>console.log(err));
             
             //localStorage.setItem('name',uname);
             //localStorage.setItem('email',email);
@@ -86,7 +89,7 @@
             const parentNode=document.getElementById('div');
             let childHTML=`<li id=${user._id}> ${user.name}-${user.email}-${user.phone}
                 <button onclick=deleteUser('${user._id}')>Delete</button>
-                <button onclick=editUser('${user._id}','${user.name}','${user.phone}')>Edit</button>
+                <button onclick=editUser('${user._id}','${user.name}','${user.email}','${user.phone}')>Edit</button>
                 </li>`
             parentNode.innerHTML=parentNode.innerHTML+childHTML;
         }
@@ -103,6 +106,12 @@
             if(childToDelete){
                 parentNode.removeChild(childToDelete);
             }
+        }
+        function editUser(id,name,email,phone){
+            document.getElementById('uname').value=name;
+            document.getElementById('email').value=email;
+            document.getElementById('phoneNo').value=phone;
+            deleteUser(id);            
         }
 
     </script>
