@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOOD APP</title>
+</head>
+<body>
+    <form id="form">
+        <label for="price">Choose Price<input type="number" id="price" name="price"></label>
+        <label for="dish">Choose Dish<select id="dish" name="dish">
+            <option>Chicken Biriyani</option>
+            <option>Mutton Biriyani</option>
+            <option>Chicken Fried Rice</option>
+            <option>Egg Fried Rice</option>
+            <option>Mushroom Fried Rice</option></select>
+        </label>
+        <label for="tables">Choose Table<select id="tables" name="tables">
+            <option>Table1</option>
+            <option>Table2</option>
+            <option>Table3</option></select>
+            
+            
+        </label>
+        <button type="submit">Add to Order</button>
+    </form>
+    <div id="table1"><h1>TABLE 1</h1></div>
+    <div id="table2"><h1>TABLE 2</h1></div>
+    <div id="table3"><h1>TABLE 3</h1></div> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script>
+        const table1 = document.getElementById('table1');
+        const table2 = document.getElementById('table2');
+        const table3 = document.getElementById('table3');
+        const form = document.getElementById('form').addEventListener('submit',addOrderToTable);
+        console.log(table1)
+        function addOrderToTable(e){
+            e.preventDefault();
+            const price = e.target.price.value;
+            const dish = e.target.dish.value;
+            const tables = e.target.tables.value;
+            const order = {
+                price:price,
+                dish:dish,
+                tables:tables
+            } 
+            axios.post("https://crudcrud.com/api/946a651427254b70a965e8cc5d4c905c/Orders",order).then(res=>{
+                showOrders(res.data);
+            }).catch(err=>console.log(err));
+
+        }
+        window.addEventListener('DOMContentLoaded',()=>{
+            axios.get("https://crudcrud.com/api/946a651427254b70a965e8cc5d4c905c/Orders").then(res=>{
+                for(i=0;i<res.data.length;i++){
+                    showOrders(res.data[i]);
+                }
+            });
+        })
+        function showOrders(order){
+            if(order.tables=='Table1'){
+                const parentNode=document.getElementById('table1');
+            let childHTML=`<li id=${order._id}> ${order.price}-${order.dish}
+                <button onclick=deleteOrder('${order._id}')>Delete</button>
+                </li>`
+            parentNode.innerHTML=parentNode.innerHTML+childHTML;
+            }else if(order.tables=='Table2'){
+                const parentNode=document.getElementById('table2');
+            let childHTML=`<li id=${order._id}> ${order.price}-${order.dish}
+                <button onclick=deleteOrder('${order._id}')>Delete</button>
+                </li>`
+            parentNode.innerHTML=parentNode.innerHTML+childHTML;
+            }else{
+                const parentNode=document.getElementById('table3');
+            let childHTML=`<li id=${order._id}> ${order.price}-${order.dish}
+                <button onclick=deleteOrder('${order._id}')>Delete</button>
+                </li>`
+            parentNode.innerHTML=parentNode.innerHTML+childHTML;
+            }
+            
+        }
+        function deleteOrder(orderid){
+            axios.delete(`https://crudcrud.com/api/946a651427254b70a965e8cc5d4c905c/Orders/${orderid}`)
+            .then(res=>{
+                hideOrder(orderid);
+                console.log(res.data)})
+            .catch(err=>console.log(err));
+            
+
+        }
+        function hideOrder(orderid){
+            const childToDelete = document.getElementById(orderid);
+            const parent = childToDelete.parentNode;
+            if(childToDelete){
+                parent.removeChild(childToDelete);
+            }
+
+        }
+
+    </script>
+</body>
+</html>
