@@ -76,6 +76,7 @@
             axios.get("https://crudcrud.com/api/946a651427254b70a965e8cc5d4c905c/UserData").then(res=>{
             for(let i=0;i<res.data.length;i++){
                 showUser(res.data[i]);
+                console.log(res.data[i]);
             }
 
         }).catch(err=>{console.log(err);});
@@ -83,11 +84,25 @@
         })
         function showUser(user){
             const parentNode=document.getElementById('div');
-            let childHTML=`<li id=${user.email}> ${user.name}-${user.email}-${user.phone}
-                <button onclick=deleteUser('${user.email}')>Delete</button>
-                <button onclick=editUser('${user.email}','${user.name}','${user.phone}')>Edit</button>
+            let childHTML=`<li id=${user._id}> ${user.name}-${user.email}-${user.phone}
+                <button onclick=deleteUser('${user._id}')>Delete</button>
+                <button onclick=editUser('${user._id}','${user.name}','${user.phone}')>Edit</button>
                 </li>`
             parentNode.innerHTML=parentNode.innerHTML+childHTML;
+        }
+        function deleteUser(user){
+            axios.delete(`https://crudcrud.com/api/946a651427254b70a965e8cc5d4c905c/UserData/${user}`).then(res=>{
+                console.log(res);
+                hideUser(user);
+            }).catch(err=>{console.log(err);});
+
+        }
+        function hideUser(id){
+            const parentNode=document.getElementById('div');
+            const childToDelete = document.getElementById(id);
+            if(childToDelete){
+                parentNode.removeChild(childToDelete);
+            }
         }
 
     </script>
