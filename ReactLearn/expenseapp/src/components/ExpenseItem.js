@@ -1,7 +1,7 @@
 import './ExpenseItem.css';
 import ExpenseDate from './ExpenseDate';
 import ExpenseDetails from './ExpenseDetails';
-function ExpenseItem(props){
+const ExpenseItem=(props)=>{
     const expenseDate= new Date(2022,8,1);
     const expenseTitle= 'Car Purchase';
     const expensePrice = 10000;
@@ -16,6 +16,6 @@ function ExpenseItem(props){
         </div>
     )
 
-}
+};
 
 export default ExpenseItem;
