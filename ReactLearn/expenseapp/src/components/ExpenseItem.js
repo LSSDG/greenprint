@@ -11,6 +11,10 @@ const ExpenseItem=(props)=>{
         setAmount(null);
 
     }
+    const changeExpense = ()=>{
+        setAmount(100);
+
+    }
     
     return(
         <div className="expense-item">
@@ -18,6 +22,7 @@ const ExpenseItem=(props)=>{
             
             <ExpenseDetails title={props.expense.title} price={amount} loc={props.expense.loc}/>
             <button onClick={deleteExpense} >Delete Expense</button>  
+            <button onClick={changeExpense} >Change Expense</button>
             
         </div>
     )
