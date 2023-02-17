@@ -1,5 +1,5 @@
 import ExpenseItem from './components/ExpenseItem';
-import ExpenseForm from './components/ExpenseForm';
+import NewExpense from './components/NewExpense';
 
 
 function App() {
@@ -12,9 +12,13 @@ function App() {
       <ExpenseItem expense={expenses[1]}></ExpenseItem>
       <ExpenseItem expense={expenses[2]}></ExpenseItem>
       <ExpenseItem expense={expenses[3]}></ExpenseItem>*/
+      const addExpenseHandler = ()=>{
+        console.log('addexpense');
+
+      }
   return (
     <div className="App">
-      <ExpenseForm></ExpenseForm>
+      <NewExpense onAddExpense={addExpenseHandler}/> 
       {expenses.map((expense)=>(
         <ExpenseItem expense={expense} key={expense.id}></ExpenseItem>
       ))}
