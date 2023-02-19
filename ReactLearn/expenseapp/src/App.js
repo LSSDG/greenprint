@@ -1,7 +1,8 @@
-import ExpenseItem from './components/ExpenseItem';
-import ExpensesFilter from './components/ExpensesFilter';
+//import ExpenseItem from './components/ExpenseItem';
+//import ExpensesFilter from './components/ExpensesFilter';
 import NewExpense from './components/NewExpense';
 import {useState} from 'react';
+import Expenses from './components/Expenses';
 
 
 function App() {
@@ -22,25 +23,13 @@ function App() {
         })
 
       }
-      const [filItems,setFilItems]=useState(dexpenses);
-      const [filteredYear,setFilteredYear] = useState('2020');
-      const filterChangeHandler =(selectedYear)=>{
-        setFilteredYear(selectedYear);
-        console.log(expenses);
-        const temp=expenses.filter(expense=>{
-          return expense.date.getFullYear().toString() == filteredYear;
-          
-        })
-        console.log(temp);
-        setFilItems(temp);console.log(filItems);
-      }
+      
+      
   return (
     <div className="App">
       <NewExpense onAddExpense={addExpenseHandler}/> 
-      <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler}></ExpensesFilter>
-      {filItems.length==0 ? (<p>No expense</p>) : filItems.map((expen)=>(
-        <ExpenseItem expense={expen} key={expen.id}></ExpenseItem>
-      ))}
+      <Expenses items={expenses}/>
+       
       
       
     
